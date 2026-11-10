@@ -1,0 +1,920 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saint Esprit Katedrali</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: #FFFCF6;
+    color: #514333;
+}
+
+/* ANA SAYFA */
+
+.page {
+    display: none;
+    min-height: 100vh;
+    background: #F4EDE0;
+}
+
+.page.active {
+    display: block;
+    animation: fadeUp .5s ease;
+}
+
+/* VİDEO ALANI */
+
+.hero {
+    position: relative;
+    height: 330px;
+    width: 100%;
+    overflow: hidden;
+    background: #DCCBB1;
+}
+
+.hero video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* VİDEO ÜZERİNDEKİ SAĞ MENÜ */
+
+.top-menu {
+    position: absolute;
+    z-index: 5;
+    top: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+    padding: 0 12px;
+    background: transparent;
+    animation: fadeDown 1s ease both;
+}
+
+.top-item {
+    width: 49px;
+    height: 47px;
+    border: 1px solid rgba(255,252,246,.85);
+    border-radius: 5px;
+    background: rgba(255,252,246,.82);
+    color: #65523A;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    transition: .3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.top-item:active {
+    transform: scale(.92);
+    background: #E9DFCF;
+}
+
+.top-icon {
+    font-size: 17px;
+    line-height: 1;
+}
+
+.top-label {
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    letter-spacing: .1px;
+}
+
+/* VİDEO ÜZERİNDEKİ YAZILAR */
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background: linear-gradient(
+        to bottom,
+        rgba(25,20,15,.10),
+        rgba(25,20,15,.42)
+    );
+    pointer-events: none;
+}
+
+.hero-overlay h2 {
+    font-size: 35px;
+    font-weight: normal;
+    letter-spacing: 3px;
+    text-shadow: 0 2px 8px #000;
+    animation: titleReveal 1.5s ease both;
+}
+
+.hero-overlay p {
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-top: 13px;
+    text-shadow: 0 2px 5px #000;
+    animation: titleReveal 2s ease both;
+}
+
+/* ANA SAYFANIN ALT BÖLÜMÜ - TEK RENK */
+
+#home {
+    background: #FFFCF6;
+}
+
+.header,
+.welcome,
+.container {
+    background: #FFFCF6;
+}
+
+/* KATEDRAL BAŞLIĞI */
+
+.header {
+    text-align: center;
+    padding: 30px 15px 12px;
+    animation: fadeUp 1.2s ease both;
+}
+
+.header h1 {
+    font-size: 27px;
+    font-weight: normal;
+    color: #514333;
+}
+
+.header p {
+    font-size: 13px;
+    color: #927B56;
+    margin-top: 10px;
+    letter-spacing: .4px;
+    line-height: 1.6;
+}
+
+/* KARŞILAMA ALANI */
+
+.welcome {
+    padding: 24px 25px 28px;
+    text-align: center;
+    animation: fadeUp 1.5s ease both;
+}
+
+.welcome h2 {
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 15px;
+    color: #65523A;
+}
+
+.welcome p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #786A58;
+    max-width: 550px;
+    margin: auto;
+}
+
+/* ALT MENÜ ALANI */
+
+.container {
+    max-width: 620px;
+    margin: auto;
+    padding: 20px 20px 35px;
+}
+
+/* ANA MENÜ KUTULARI */
+
+.menu-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 12px;
+    padding: 16px 15px;
+    margin-bottom: 11px;
+    background: #FFFCF6;
+    border: 1px solid #D6C7AD;
+    border-radius: 3px;
+    color: #514333;
+    cursor: pointer;
+    transition: transform .3s, background .3s;
+    animation: fadeUp 1s ease both;
+}
+
+.menu-card:nth-child(2) {
+    animation-delay: .15s;
+}
+
+.menu-card:nth-child(3) {
+    animation-delay: .3s;
+}
+
+.menu-card:active {
+    transform: scale(.97);
+    background: #EEE3D2;
+}
+
+.number {
+    color: #A48A5E;
+    font-size: 17px;
+    min-width: 23px;
+}
+
+.menu-info {
+    flex: 1;
+}
+
+.menu-info h3 {
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.4;
+}
+
+.menu-info p {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: #96846A;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+.arrow {
+    color: #A48A5E;
+    font-size: 20px;
+}
+
+/* ALT BİLGİ */
+
+footer {
+    background: #E9DFCF;
+    color: #806E52;
+    text-align: center;
+    padding: 28px 15px;
+    font-size: 13px;
+    line-height: 1.9;
+    border-top: 1px solid #CDBB9C;
+}
+
+footer strong {
+    font-size: 17px;
+    font-weight: normal;
+    color: #65523A;
+}
+
+/* ALT SAYFA BAŞLIKLARI */
+
+.page-header {
+    background: #E9DFCF;
+    padding: 22px;
+    border-bottom: 1px solid #CDBB9C;
+}
+
+.back-button {
+    background: transparent;
+    border: none;
+    color: #92774C;
+    font-size: 14px;
+    padding: 5px 0 25px;
+    cursor: pointer;
+}
+
+.page-header h1 {
+    font-size: 27px;
+    font-weight: normal;
+    line-height: 1.4;
+    color: #514333;
+}
+
+.page-header p {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #89775B;
+    margin-top: 12px;
+    line-height: 1.7;
+}
+
+/* ALT SAYFA İÇERİĞİ */
+
+.page-content {
+    max-width: 700px;
+    margin: auto;
+    padding: 25px 20px 40px;
+}
+
+.section-title {
+    font-size: 22px;
+    font-weight: normal;
+    color: #65523A;
+    margin-bottom: 20px;
+}
+
+.content-card {
+    background: #FFFCF6;
+    border: 1px solid #CDBB9C;
+    border-radius: 5px;
+    padding: 22px 19px;
+    margin-bottom: 15px;
+}
+
+.content-card h3 {
+    font-size: 19px;
+    font-weight: normal;
+    color: #65523A;
+    margin-bottom: 11px;
+}
+
+.content-card p {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.9;
+    color: #786A58;
+}
+
+.page-footer {
+    text-align: center;
+    padding: 25px;
+    border-top: 1px solid #DCCBB1;
+    color: #927F62;
+    font-size: 12px;
+}
+
+/* ANİMASYONLAR */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes titleReveal {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* TELEFON EKRANLARI */
+
+@media(max-width:400px) {
+
+    .hero {
+        height: 270px;
+    }
+
+    .hero-overlay h2 {
+        font-size: 29px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .top-item {
+        width: 46px;
+        height: 45px;
+    }
+
+    .top-menu {
+        gap: 5px;
+        padding-right: 10px;
+    }
+
+    .container {
+        padding: 18px 15px 30px;
+    }
+}
+
+/* HAREKETİ AZALTMA TERCİHİ */
+
+@media(prefers-reduced-motion:reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ANA SAYFA -->
+
+<div id="home" class="page active">
+
+    <!-- VİDEO VE ÜST MENÜ -->
+
+    <section class="hero">
+
+        <video
+            autoplay
+            muted
+            loop
+            playsinline
+            disablepictureinpicture
+            controlslist="nodownload"
+        >
+            <source src="katedral_video.mp4" type="video/mp4">
+            Tarayıcınız video oynatmayı desteklemiyor.
+        </video>
+
+        <!-- SAĞ ÜST SİMGELİ MENÜLER -->
+
+        <nav class="top-menu">
+
+            <button class="top-item" onclick="goHome()">
+                <span class="top-icon">⌂</span>
+                <span class="top-label">Ana Sayfa</span>
+            </button>
+
+            <button class="top-item" onclick="openPage('cathedral')">
+                <span class="top-icon">⛪</span>
+                <span class="top-label">Katedral</span>
+            </button>
+
+            <button class="top-item" onclick="openPage('christianity')">
+                <span class="top-icon">✝</span>
+                <span class="top-label">İnanç</span>
+            </button>
+
+            <button class="top-item" onclick="openPage('questions')">
+                <span class="top-icon">✉</span>
+                <span class="top-label">Sorular</span>
+            </button>
+
+        </nav>
+
+        <!-- VİDEO ÜZERİNDEKİ YAZILAR -->
+
+        <div class="hero-overlay">
+            <h2>HOŞ GELDİNİZ</h2>
+            <p>SAINT ESPRIT KATEDRALİ</p>
+        </div>
+
+    </section>
+
+    <!-- KATEDRAL BAŞLIĞI -->
+
+    <header class="header">
+
+        <h1>Saint Esprit Katedrali</h1>
+
+        <p>Rabbin adına gelen takdis ve tahsis edilsin</p>
+
+    </header>
+
+    <!-- KARŞILAMA METNİ -->
+
+    <section class="welcome">
+
+        <h2>Keşfetmeye Başlayın</h2>
+
+        <p>
+            Saint Esprit Katedrali'nin dijital ziyaretçi
+            rehberine hoş geldiniz. Bu rehber aracılığıyla
+            katedralimizin tarihini, sanat eserlerini ve
+            Hristiyan inancının temel öğretilerini
+            keşfedebilirsiniz.
+        </p>
+
+    </section>
+
+    <!-- ANA MENÜ -->
+
+    <main class="container">
+
+        <button class="menu-card" onclick="openPage('cathedral')">
+
+            <span class="number">01</span>
+
+            <span class="menu-info">
+                <h3>Katedral Hakkında Bilgilendirme</h3>
+                <p>Tarihçe, mimari ve sanat eserleri</p>
+            </span>
+
+            <span class="arrow">›</span>
+
+        </button>
+
+        <button class="menu-card" onclick="openPage('christianity')">
+
+            <span class="number">02</span>
+
+            <span class="menu-info">
+                <h3>Hristiyanlık Nedir ve Neye İnanır</h3>
+                <p>Hristiyan inancı ve Katolik Kilisesi</p>
+            </span>
+
+            <span class="arrow">›</span>
+
+        </button>
+
+        <button class="menu-card" onclick="openPage('questions')">
+
+            <span class="number">03</span>
+
+            <span class="menu-info">
+                <h3>Soru Sormak İçin</h3>
+                <p>Merak ettiklerinizi bize iletin</p>
+            </span>
+
+            <span class="arrow">›</span>
+
+        </button>
+
+    </main>
+
+    <!-- ANA SAYFA ALT BİLGİ -->
+
+    <footer>
+
+        <strong>SAINT ESPRIT KATEDRALİ</strong>
+
+        <br>İstanbul
+
+        <br>Tarih · İnanç · Sanat
+
+    </footer>
+
+</div>
+
+
+<!-- KATEDRAL SAYFASI -->
+
+<div id="cathedral" class="page">
+
+    <header class="page-header">
+
+        <button class="back-button" onclick="goHome()">
+            ← Ana Sayfaya Dön
+        </button>
+
+        <h1>Katedral Hakkında Bilgilendirme</h1>
+
+        <p>
+            Saint Esprit Katedrali'nin tarihini,
+            mimarisini ve sanat eserlerini keşfedin.
+        </p>
+
+    </header>
+
+    <main class="page-content">
+
+        <h2 class="section-title">Katedrali Tanıyın</h2>
+
+        <div class="content-card">
+            <h3>Katedralin Tarihçesi</h3>
+            <p>
+                Katedralin kuruluşu, tarihsel gelişimi,
+                İstanbul'daki Katolik toplumu için önemi
+                ve Lazarist cemaatinin katkıları.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Mimari Özellikler</h3>
+            <p>
+                Katedralin mimari tarzı, dış cephesi,
+                iç mekânı, sütunları, kemerleri ve
+                mimari süslemeleri.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Aziz Stefanos</h3>
+            <p>
+                İlk Hristiyan şehidi Aziz Stefanos'un
+                hayatı, iman tanıklığı ve Kilise
+                geleneğindeki önemi.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Aziz Don Bosco</h3>
+            <p>
+                Aziz Don Bosco'nun yaşamı, eğitim
+                anlayışı ve gençlere yönelik ruhani
+                çalışmaları.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Meryem Ana Heykeli</h3>
+            <p>
+                Meryem Ana'nın Katolik inancındaki
+                yeri ve heykelin sembolik anlamı.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Ana Altar</h3>
+            <p>
+                Ana altarın tarihsel ve litürjik
+                özellikleri, Efkaristiya kutlamasındaki
+                yeri.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Kürsü</h3>
+            <p>
+                Tanrı Sözü'nün ilan edildiği kürsünün
+                litürjik işlevi ve önemi.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Vitraylar ve Tablolar</h3>
+            <p>
+                Katedralde bulunan dinî tablolar,
+                vitraylar ve bunların taşıdığı
+                teolojik mesajlar.
+            </p>
+        </div>
+
+    </main>
+
+    <div class="page-footer">
+        SAINT ESPRIT KATEDRALİ · İSTANBUL
+    </div>
+
+</div>
+
+
+<!-- HRİSTİYANLIK SAYFASI -->
+
+<div id="christianity" class="page">
+
+    <header class="page-header">
+
+        <button class="back-button" onclick="goHome()">
+            ← Ana Sayfaya Dön
+        </button>
+
+        <h1>Hristiyanlık Nedir ve Neye İnanır</h1>
+
+        <p>
+            Hristiyan inancının temel öğretilerini
+            ve Katolik Kilisesi'nin geleneğini tanıyın.
+        </p>
+
+    </header>
+
+    <main class="page-content">
+
+        <h2 class="section-title">Hristiyan İnancı</h2>
+
+        <div class="content-card">
+            <h3>Hristiyanlık Nedir?</h3>
+            <p>
+                Hristiyanlığın kökeni, İsa Mesih'in
+                yaşamı, öğretileri ve Hristiyan
+                inancının temel özellikleri.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Tanrı ve Kutsal Üçlü Birlik</h3>
+            <p>
+                Baba, Oğul ve Kutsal Ruh:
+                Hristiyan inancının merkezinde bulunan
+                Kutsal Üçlü Birlik öğretisi.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>İsa Mesih</h3>
+            <p>
+                İsa Mesih'in yaşamı, Tanrı'nın Oğlu
+                oluşu, öğretileri, çarmıha gerilişi
+                ve dirilişi.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Kutsal Kitap</h3>
+            <p>
+                Eski Ahit ve Yeni Ahit'in yapısı
+                ve Kutsal Kitap'ın Hristiyan
+                yaşamındaki yeri.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Katolik Kilisesi</h3>
+            <p>
+                Katolik Kilisesi'nin tarihi, yapısı,
+                Papa'nın görevi ve Kilise'nin
+                evrensel misyonu.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Yedi Sakrament</h3>
+            <p>
+                Vaftiz, Konfirmasyon, Efkaristiya,
+                Günah İtirafı, Hastaların Mesh Edilmesi,
+                Ruhbanlık ve Evlilik.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Azizler ve Kilise Babaları</h3>
+            <p>
+                Hristiyanlık tarihinde önemli yere
+                sahip azizlerin ve Kilise Babalarının
+                yaşamları ve öğretileri.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Kutsal Ayin ve Dua</h3>
+            <p>
+                Kutsal Ayin'in bölümleri, Efkaristiya,
+                litürji ve Hristiyanların dua yaşamı.
+            </p>
+        </div>
+
+    </main>
+
+    <div class="page-footer">
+        SAINT ESPRIT KATEDRALİ · İSTANBUL
+    </div>
+
+</div>
+
+
+<!-- SORULAR SAYFASI -->
+
+<div id="questions" class="page">
+
+    <header class="page-header">
+
+        <button class="back-button" onclick="goHome()">
+            ← Ana Sayfaya Dön
+        </button>
+
+        <h1>Soru Sormak İçin</h1>
+
+        <p>
+            Merak ettiklerinizi ve görüşlerinizi
+            bizimle paylaşabilirsiniz.
+        </p>
+
+    </header>
+
+    <main class="page-content">
+
+        <h2 class="section-title">İletişim ve Sorular</h2>
+
+        <div class="content-card">
+            <h3>Merak Ettikleriniz</h3>
+            <p>
+                Hristiyanlık, Katolik Kilisesi,
+                katedralin tarihi, sanat eserleri
+                veya dinî konular hakkında merak
+                ettiğiniz soruları iletebilirsiniz.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>İletişim</h3>
+            <p>
+                Sorularınızı iletmek ve daha
+                ayrıntılı bilgi almak için katedral
+                görevlileriyle iletişime geçebilirsiniz.
+            </p>
+        </div>
+
+        <div class="content-card">
+            <h3>Geri Bildirim</h3>
+            <p>
+                Dijital rehberimiz hakkındaki
+                görüş ve önerilerinizi bizimle
+                paylaşabilirsiniz.
+            </p>
+        </div>
+
+    </main>
+
+    <div class="page-footer">
+        SAINT ESPRIT KATEDRALİ · İSTANBUL
+    </div>
+
+</div>
+
+
+<!-- SAYFA GEÇİŞLERİ -->
+
+<script>
+
+function openPage(pageId) {
+
+    document.querySelectorAll(".page").forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    history.pushState(
+        {page:pageId},
+        "",
+        "#" + pageId
+    );
+}
+
+function goHome() {
+
+    document.querySelectorAll(".page").forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    document.getElementById("home").classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    history.pushState(
+        {page:"home"},
+        "",
+        "#home"
+    );
+}
+
+window.addEventListener("popstate", function(event) {
+
+    document.querySelectorAll(".page").forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    var pageId = event.state && event.state.page
+        ? event.state.page
+        : "home";
+
+    var target = document.getElementById(pageId);
+
+    if(target) {
+        target.classList.add("active");
+    } else {
+        document.getElementById("home").classList.add("active");
+    }
+
+    window.scrollTo(0, 0);
+
+});
+
+</script>
+
+</body>
+</html>
